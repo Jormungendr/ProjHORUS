@@ -4,13 +4,12 @@ from flask import Flask, jsonify, render_template, request, redirect, Response, 
 # import db
 # from conf import txt, const, cfg
 # from tasks import runTask, taskFailed, taskFinished, taskSuccess, taskResult, executeSimulation, execute_simulation
-from projhorus import lib
+# from projhorus import lib
 import json
 import requests
 import pytz
 from io import BytesIO
 import time
-import jwt
 import os
 from flask_sslify import SSLify
 import re
