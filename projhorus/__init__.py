@@ -7,15 +7,12 @@ import db
 # import lib
 import json
 import requests
-import model
 import pytz
-import StringIO
 from io import BytesIO
 import time
 import jwt
 import os
 from flask_sslify import SSLify
-from compiler.ast import flatten
 import re
 import openpyxl
 import difflib
@@ -23,8 +20,7 @@ import cache
 import base64
 from bson.objectid import ObjectId
 import datetime
-import urllib2
-
+import urllib3
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -122,7 +118,7 @@ def index():
     if r.status_code == 200 and r.json().get('success', False):
         latest_data = r.json().get('data', [])[:6] 
     else:
-        print 'Get latest data fail: [%d]%s' % (r.status_code, r.json().get('message', ''))
+        print ('Get latest data fail: [%d]%s' % (r.status_code, r.json().get('message', '')))
     status = db.get_status(session.get(const.SESSION_USERNAME[0], ''))
     statistic = {k: status[k] if status and k in status else 0 for k in const.INDEX_STATISTIC}
     quota = [] 
