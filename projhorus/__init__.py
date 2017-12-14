@@ -10,7 +10,6 @@ import requests
 import pytz
 from io import BytesIO
 import time
-import jwt
 import os
 from flask_sslify import SSLify
 import re

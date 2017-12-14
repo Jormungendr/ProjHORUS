@@ -1,3 +1,6 @@
 venv/
 projhorus/__pycache__/
 hello-react/
+__pycache__/
+.cache/
+.vscode/
