@@ -1,21 +1,18 @@
 # -*- coding: utf-8 -*-
 
 from flask import Flask, jsonify, render_template, request, redirect, Response, flash, session, send_file, abort, send_from_directory
-import db
+# import db
 # from conf import txt, const, cfg
 # from tasks import runTask, taskFailed, taskFinished, taskSuccess, taskResult, executeSimulation, execute_simulation
 # import lib
 import json
 import requests
-import model
 import pytz
-import StringIO
 from io import BytesIO
 import time
 import jwt
 import os
 from flask_sslify import SSLify
-from compiler.ast import flatten
 import re
 import openpyxl
 import difflib
@@ -23,8 +20,7 @@ import cache
 import base64
 from bson.objectid import ObjectId
 import datetime
-import urllib2
-
+import urllib3
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
@@ -53,46 +49,12 @@ app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 tz = pytz.timezone('Asia/Shanghai')
 
-import projhorus.user
+# import projhorus.user
 
 @app.after_request
 def finish_headers(response):
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
     return response
-
-
-@app.route('/signin', methods=['GET', 'POST'])
-def sign_in():
-    if lib.is_im_staff(session):
-        return redirect('/')
-    error = ''
-    if request.method == 'POST':
-        username = request.form.get('username', '').strip().lower()
-        password = request.form.get('password', '')
-        authcode = request.form.get('authcode', None)
-        if not username or not password:
-            error = txt.NO_EMPTY_USER_OR_PASS_ALLOWED
-        elif authcode is None or authcode.upper() != session['auth_code'].upper():
-            error = txt.WRONG_AUTH_CODE
-        else:
-            u = lib.sigin_user(username, password)
-            if u:
-                for sk in const.STORED_SESSION:
-                    session[sk[0]] = u[sk[1]]
-                return redirect('/')
-            else:
-                error = txt.NO_USER_OR_WRONG_PASS
-    else:
-        sso_url = '<a href="http://xinpeng.co/contact" target="_blank">没有账号？点击这里申请试用</a>'
-    return render_template('login.html', error=error, sso_url=sso_url)
-
-
-@app.route('/signout')
-def sign_out():
-    for sk in const.STORED_SESSION:
-        session.pop(sk[0], None)
-    return redirect('/signin')
-
 
 @app.route('/')
 def index():
@@ -122,7 +84,7 @@ def index():
     if r.status_code == 200 and r.json().get('success', False):
         latest_data = r.json().get('data', [])[:6] 
     else:
-        print 'Get latest data fail: [%d]%s' % (r.status_code, r.json().get('message', ''))
+        print ('Get latest data fail: [%d]%s' % (r.status_code, r.json().get('message', '')))
     status = db.get_status(session.get(const.SESSION_USERNAME[0], ''))
     statistic = {k: status[k] if status and k in status else 0 for k in const.INDEX_STATISTIC}
     quota = [] 
