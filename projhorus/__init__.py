@@ -56,7 +56,10 @@ def finish_headers(response):
     return response
 
 @app.route('/')
-def index():
+# def index():
+#     return render_template('index.html')
+
+def test_index():
     return render_template('index.html')
 
 
