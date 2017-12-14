@@ -4,4 +4,3 @@ hello-react/
 __pycache__/
 .cache/
 .vscode/
-test*
