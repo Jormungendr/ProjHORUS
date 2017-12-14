@@ -1,7 +1,0 @@
-{
-  "projhorus/test__init__.py": true,
-  "projhorus/test__init__.py::test_finish_headers": true,
-  "projhorus/test__init__.py::test_index": true,
-  "projhorus/test__init__.py::test_serve_robots_txt": true,
-  "projhorus/test_init.py::test_finish_headers": true
-}
