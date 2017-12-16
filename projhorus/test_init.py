@@ -55,16 +55,19 @@ def finish_headers(response):
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
     return response
 
-@app.route('/')
-def index():
-    return render_template('index.html',
-                            test = True,
-                            string = "shit")
+# @app.route('/')
 
+# def test_index():
+#     return render_template('index.html',
+#                             test = True,
+#                             string = "shit")
 
-@app.route('/robots.txt')
-def serve_robots_txt():
-    return send_from_directory(app.static_folder, 'robots.txt')
+def test_index():
+    return True
+
+# @app.route('/robots.txt')
+# def test_serve_robots_txt():
+#     return send_from_directory(app.static_folder, 'robots.txt')
 
 
 if __name__ == '__main__':
