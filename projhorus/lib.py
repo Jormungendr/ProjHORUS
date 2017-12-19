@@ -2,7 +2,6 @@
 from datetime import datetime
 from bs4 import BeautifulSoup
 import bcrypt
-import jwt
 import os
 import pytz
 import decimal

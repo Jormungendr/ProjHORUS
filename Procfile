@@ -1,1 +1,1 @@
-web: gunicorn main:app --log-file=- --max-requests=1024
+web: python main.py
