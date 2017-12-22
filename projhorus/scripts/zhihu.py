@@ -4,7 +4,6 @@ from textrank4zh import TextRank4Keyword
 import requests
 import newspaper
 from wordcloud import WordCloud as wd
-import matplotlib.pyplot as plt
 
 Client = zhihu_oauth.ZhihuClient()
 Client.load_token('token.pkl')

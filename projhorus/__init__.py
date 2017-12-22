@@ -58,8 +58,7 @@ def finish_headers(response):
 @app.route('/')
 def index():
     return render_template('index.html',
-                            test = True,
-                            string = "shit")
+                            test = True)
 
 
 @app.route('/robots.txt')
