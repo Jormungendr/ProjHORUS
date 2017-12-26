@@ -27,6 +27,7 @@
       <form name="form">
       <input name="Qlink" placeholder="Question number" spellcheck="false" class="mui--is-empty mui--is-pristine mui--is-touched">
       <button class="mui-btn mui-btn--raised" type="button" onclick="myClick()">提交</button>
+      <button class="mui-btn mui-btn--raised" type="button" href={{flag}}>下载结果</button>
       </form>
       <br>
       <br>
@@ -34,18 +35,24 @@
     </div>
     <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
   </body>
-{% endblock %}
+
+<script src="/static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src='/static/js/mod.js'  type="text/javascript"></script>
 <script>
 function myClick(){
   var form = document.querySelector('form');
   console.log("Submitted", form.Qlink.value);
-  xpPostReq('/get/zhihu_link',{'Qlink':form.Qlink.value},
-  function (resp){
-      alert('提交成功');
-      window.location.href='/morpheme';
-  },
-  function (resp){
-      alert('提交失败');
-  });
+  $.post('/get/zhihu_link', {'Qlink':form.Qlink.value})
+  .done(function(resp){
+      if(success){
+          success(resp);
+      }
+      else{
+          if(!resp.success && resp.message){
+              alert(resp.message);
+          }
+      }
+  })
 }
 </script>
+{% endblock %}

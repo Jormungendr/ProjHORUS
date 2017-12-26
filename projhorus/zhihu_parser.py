@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 from projhorus import *
+from flask import Flask, jsonify, render_template, request, redirect, Response, flash, session, send_file, abort, send_from_directory
+# import db
+# from conf import txt, const, cfg
+# from tasks import runTask, taskFailed, taskFinished, taskSuccess, taskResult, executeSimulation, execute_simulation
+# from projhorus import lib
+import json
+import requests
+import pytz
+from io import BytesIO
+import time
+import os
+from flask_sslify import SSLify
+import re
+import openpyxl
+import difflib
+import cache
+import base64
+from bson.objectid import ObjectId
+import datetime
+import urllib3
 import zhihu_oauth
 import bs4 as BeautifulSoup
 from textrank4zh import TextRank4Keyword
-import requests
 import newspaper
 @app.route('/get/zhihu_link')
 def zhihu_exec():
@@ -22,3 +41,4 @@ def zhihu_exec():
             f.write('<--------------------关键短语-------------------->\n')
             for phrase in tr4w.get_keyphrases(keywords_num=20, min_occur_num=2):
                 f.write(phrase+'\n')
+    return 1
