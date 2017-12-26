@@ -106,3 +106,4 @@ Desktop.ini
 *.pdf
 *.bak
 .cache
+.vscode/settings.json
