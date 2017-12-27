@@ -74,7 +74,7 @@ def zhihu_exec():
     Client.load_token('token.pkl')
     me = Client.me()
     question = Client.question(int(Qlink))
-    with open('question_%s_result.txt' % Qlink,'w') as f:
+    with open(os.path.join(os.path.join('projhorus','static'),'question_%s_result.txt' % Qlink),'w') as f:
         for i in question.answers:
             tr4w = TextRank4Keyword()
             tr4w.analyze(text=i.content, lower=True, window=2)
@@ -85,7 +85,7 @@ def zhihu_exec():
             for phrase in tr4w.get_keyphrases(keywords_num=20, min_occur_num=2):
                 f.write(phrase+'\n')
     global FLAG
-    FLAG = '/question_%s_result.txt' % Qlink
+    FLAG = '/static/question_%s_result.txt' % Qlink
     return redirect('/')
 
 @app.route('/robots.txt')
