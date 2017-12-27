@@ -27,7 +27,7 @@
       <form name="form">
       <input name="Qlink" placeholder="Question number" spellcheck="false" class="mui--is-empty mui--is-pristine mui--is-touched">
       <button class="mui-btn mui-btn--raised" type="button" onclick="myClick()">提交</button>
-      <a class="mui-btn mui-btn--raised" href={{flag}} download="下载结果.txt">下载结果</a>
+      <a class="mui-btn mui-btn--raised" href={{flag}}>下载结果</a>
       </form>
       <br>
       <br>
@@ -43,16 +43,6 @@ function myClick(){
   var form = document.querySelector('form');
   console.log("Submitted", form.Qlink.value);
   $.post('/get/zhihu_link', {'Qlink':form.Qlink.value})
-  .done(function(resp){
-      if(success){
-          window.location.reload();
-      }
-      else{
-          if(!resp.success && resp.message){
-              alert(resp.message);
-          }
-      }
-  })
 }
 </script>
 {% endblock %}
