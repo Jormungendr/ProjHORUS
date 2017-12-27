@@ -43,7 +43,6 @@ function myClick(){
   var form = document.querySelector('form');
   console.log("Submitted", form.Qlink.value);
   $.post('/get/zhihu_link', {'Qlink':form.Qlink.value})
-  window.location.reload();
 }
 </script>
 {% endblock %}
