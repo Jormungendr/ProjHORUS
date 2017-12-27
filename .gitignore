@@ -104,3 +104,6 @@ Desktop.ini
 *.zip
 *.pdf
 *.bak
+.cache
+.vscode/settings.json
+*.txt

@@ -20,7 +20,12 @@ import base64
 from bson.objectid import ObjectId
 import datetime
 import urllib3
+import zhihu_oauth
+import bs4 as BeautifulSoup
+from textrank4zh import TextRank4Keyword
+import newspaper
 
+FLAG = ''
 def generate_csrf_token():
     if '_csrf_token' not in session:
         session['_csrf_token'] = os.urandom(24).encode('hex') 
@@ -57,9 +62,31 @@ def finish_headers(response):
 
 @app.route('/')
 def index():
+    global FLAG
+    print (FLAG)
     return render_template('index.html',
-                            test = True)
+                    flag = FLAG)
 
+@app.route('/get/zhihu_link', methods=['POST'])
+def zhihu_exec():
+    Qlink = request.form.get('Qlink', '')
+    Client = zhihu_oauth.ZhihuClient()
+    Client.load_token('token.pkl')
+    me = Client.me()
+    question = Client.question(int(Qlink))
+    with open('question_%s_result.txt' % Qlink,'w') as f:
+        for i in question.answers:
+            tr4w = TextRank4Keyword()
+            tr4w.analyze(text=i.content, lower=True, window=2)
+            f.write('<--------------------关键词-------------------->\n')
+            for item in tr4w.get_keywords(20, word_min_len=1):
+                f.write(str(item.word) +'  '+ str(item.weight)+'\n')
+            f.write('<--------------------关键短语-------------------->\n')
+            for phrase in tr4w.get_keyphrases(keywords_num=20, min_occur_num=2):
+                f.write(phrase+'\n')
+    global FLAG
+    FLAG = '/question_%s_result.txt' % Qlink
+    return redirect('/')
 
 @app.route('/robots.txt')
 def serve_robots_txt():
