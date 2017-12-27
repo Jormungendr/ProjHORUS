@@ -3,3 +3,4 @@
 [![Build Status](https://travis-ci.org/Jormungendr/ProjHORUS.svg?branch=master)](https://travis-ci.org/Jormungendr/ProjHORUS.svg?branch=master)
 ![Language](projhorus/static/image/english.svg)
 ![Language](projhorus/static/image/chinese.svg)
+## A simple zhihu answer parser website based on flask. 
