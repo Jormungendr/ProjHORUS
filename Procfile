@@ -1,1 +1,1 @@
-web: python main.py
+web: gunicorn --daemon --reload -w 4 --log-file gunicorn.log -b 0.0.0.0:80 main:app
