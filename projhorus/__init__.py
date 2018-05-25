@@ -78,10 +78,10 @@ def zhihu_exec():
         for i in question.answers:
             tr4w = TextRank4Keyword()
             tr4w.analyze(text=i.content, lower=True, window=2)
-            f.write('<--------------------关键词-------------------->\n')
+            f.write(u'<--------------------关键词-------------------->\n')
             for item in tr4w.get_keywords(20, word_min_len=1):
                 f.write(str(item.word) +'  '+ str(item.weight)+'\n')
-            f.write('<--------------------关键短语-------------------->\n')
+            f.write(u'<--------------------关键短语-------------------->\n')
             for phrase in tr4w.get_keyphrases(keywords_num=20, min_occur_num=2):
                 f.write(phrase+'\n')
     global FLAG
