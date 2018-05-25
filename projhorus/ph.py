@@ -1,8 +1,3 @@
-作者：张子浩
-链接：https://www.zhihu.com/question/20799742/answer/285160547
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-
 import urllib2
 import urllib
 import datetime
@@ -66,7 +61,7 @@ def download_the_av(url):
 
 
 
-urls=["https://www.p***hub.com/view_video.php?viewkey=ph592ef8731630a",]
+urls=["https://www.pornhub.com/view_video.php?viewkey=ph592ef87312131a",]
 print len(urls),
 print " videos to download..."
 count=0
