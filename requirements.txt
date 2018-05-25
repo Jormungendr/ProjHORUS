@@ -1,3 +1,4 @@
+pip==9.0.1
 astroid==1.5.3
 bcrypt==3.1.4
 beautifulsoup4==4.6.0
