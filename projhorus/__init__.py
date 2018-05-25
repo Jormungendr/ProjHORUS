@@ -5,6 +5,7 @@ from flask import Flask, jsonify, render_template, request, redirect, Response, 
 # from conf import txt, const, cfg
 # from tasks import runTask, taskFailed, taskFinished, taskSuccess, taskResult, executeSimulation, execute_simulation
 # from projhorus import lib
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import json
 import requests
 import pytz
