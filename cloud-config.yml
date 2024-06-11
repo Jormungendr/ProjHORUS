@@ -1,0 +1,74 @@
+hostname: k8s-master
+
+rancher:
+  console: alpine
+
+  network:
+    interfaces:
+      eth0:
+        address: 192.168.100.100/24
+        gateway: 192.168.100.1
+        mtu: 1500
+        dhcp: false
+    dns:
+      nameservers:
+        - 192.163.100.1
+        - 8.8.8.8
+
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHS8xNfKUHuS++KgVmVFyJSbzKH51BY0ZTlemMNluSyB admin@InsaneGameBox
+
+write_files:
+  - path: /etc/apk/repositories
+    permissions: "0755"
+    owner: root
+    content: |
+      https://mirrors.ustc.edu.cn/alpine/latest-stable/main
+      https://mirrors.ustc.edu.cn/alpine/latest-stable/community
+
+  - path: /etc/profile
+    permissions: "0755"
+    owner: root
+    content: |
+      export CHARSET=UTF-8
+      export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      export PAGER=less
+      export PS1="\[\e[37m\][\[\e[32m\]\u\[\e[37m\]@\h \[\e[36m\]\w\[\e[0m\]]\\$"
+      export TZ='CST-8'
+      umask 022
+
+      for script in /etc/profile.d/*.sh ; do
+              if [-r $script] ; then
+                      . $script
+              fi
+      done
+
+  - path: /home/rancher/.bash_profile
+    permissions: "0755"
+    owner: rancher
+    content: |
+      # If the shell is interactive and .bashrc exists, get the aliases and functions
+      if [[$- == *i* && -f ~/.bashrc]]; then
+          . ~/.bashrc
+      fi
+
+  - path: /home/rancher/.bashrc
+    permissions: "0755"
+    owner: rancher
+    content: |
+      # .bashrc
+      # User specific aliases and functions
+      alias  d="docker"
+      alias di="docker image"
+      alias dc="docker container"
+      alias dv="docker volumn"
+      alias dn="docker netwrok"
+
+      # Source global definitions
+      if [-f /etc/bashrc]; then
+              . /etc/bashrc
+      fi
+
+runcmd:
+  - apk update
+  - crond
