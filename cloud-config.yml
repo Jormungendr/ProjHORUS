@@ -1,15 +1,10 @@
-hostname: k8s-master
-
 rancher:
   console: alpine
 
   network:
     interfaces:
       eth0:
-        address: 192.168.100.100/24
-        gateway: 192.168.100.1
-        mtu: 1500
-        dhcp: false
+        dhcp: true
     dns:
       nameservers:
         - 192.163.100.1
